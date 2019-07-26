@@ -46,5 +46,17 @@ namespace mouseclick_looper {
                 this["Secs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Sounds {
+            get {
+                return ((bool)(this["Sounds"]));
+            }
+            set {
+                this["Sounds"] = value;
+            }
+        }
     }
 }

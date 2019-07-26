@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Media;
 using System.Windows.Threading;
 
 namespace mouseclick_looper
@@ -41,6 +42,9 @@ namespace mouseclick_looper
             int X = (int) pointToScreen.X;
             int Y = (int) pointToScreen.Y;
             mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, X, Y, 0, 0);
+
+            if (chkSounds.IsChecked == true)
+                SystemSounds.Asterisk.Play();
         }
         private void cmdOK_Click(object sender, EventArgs e)
         {
@@ -66,9 +70,7 @@ namespace mouseclick_looper
 
             cmdOk.IsEnabled = false;
 
-            SaveSettings(
-                            new AppTimes { Mins = int.Parse(txtMins.Text == "" ? "0" : txtMins.Text), Secs = int.Parse(txtSecs.Text) }
-                        );
+            SaveSettings();
 
             timer1.Start();
 
@@ -108,6 +110,7 @@ namespace mouseclick_looper
 
         private void cmdClose_Click(object sender, EventArgs e)
         {
+            SaveSettings();
             this.Close();
         }
 
@@ -118,20 +121,22 @@ namespace mouseclick_looper
 
             times.Mins = int.Parse(settings.Mins);
             times.Secs = int.Parse(settings.Secs);
+            chkSounds.IsChecked = settings.Sounds;
 
             return times;
         }
 
-        private void SaveSettings(AppTimes _times)
+        private void SaveSettings()
         {
             mouseclick_looper.Mouseclick_looper settings = new Mouseclick_looper();
 
             settings.Mins = txtMins.Text;
             settings.Secs = txtSecs.Text;
+            settings.Sounds = (bool)chkSounds.IsChecked;
             settings.Save();
         }
 
-      
-        }
+       
+    }
     
 }

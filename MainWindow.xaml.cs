@@ -69,6 +69,7 @@ namespace mouseclick_looper
             DisplayStartedTime();
 
             cmdOk.IsEnabled = false;
+            cmdreset.IsEnabled = true;
 
             SaveSettings();
 
@@ -96,6 +97,7 @@ namespace mouseclick_looper
             grdMain.Background = Brushes.LightGray;
             this.timer1.Stop();
             cmdOk.IsEnabled = true;
+            cmdreset.IsEnabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)

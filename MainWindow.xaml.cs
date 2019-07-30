@@ -100,19 +100,10 @@ namespace mouseclick_looper
             cmdreset.IsEnabled = false;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            MainWindow mw = (MainWindow)Application.Current.MainWindow;
-            mw.Title = "Stopped";
-
-            var times = GetSettings();
-            txtMins.Text = times.Mins.ToString();
-            txtSecs.Text = times.Secs.ToString();
-        }
-
         private void cmdClose_Click(object sender, EventArgs e)
         {
             SaveSettings();
+            timer1.Stop();
             this.Close();
         }
 

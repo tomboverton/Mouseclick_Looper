@@ -112,8 +112,8 @@ namespace mouseclick_looper
             AppTimes times = new AppTimes();
             mouseclick_looper.Mouseclick_looper settings = new Mouseclick_looper();
 
-            times.Mins = int.Parse(settings.Mins);
-            times.Secs = int.Parse(settings.Secs);
+            times.Mins = int.Parse(settings.Mins == "" ? "0" : settings.Mins);
+            times.Secs = int.Parse(settings.Secs == "" ? "0" : settings.Secs);
             chkSounds.IsChecked = settings.Sounds;
 
             return times;
@@ -123,8 +123,8 @@ namespace mouseclick_looper
         {
             mouseclick_looper.Mouseclick_looper settings = new Mouseclick_looper();
 
-            settings.Mins = txtMins.Text;
-            settings.Secs = txtSecs.Text;
+            settings.Mins = txtMins.Text.Trim() == "" ? "0" : txtMins.Text;
+            settings.Secs = txtSecs.Text.Trim() == "" ? "0" : txtSecs.Text;
             settings.Sounds = (bool)chkSounds.IsChecked;
             settings.Save();
         }

@@ -87,7 +87,28 @@ namespace mouseclick_looper
         private void timer1_Tick(object sender, EventArgs e)
         {
             DoMouseClick();
+
+            double current_seconds = timer1.Interval.TotalSeconds;
+            Random random_flag = new Random();
+            Random random = new Random();
+            int random_flag_value = random_flag.Next(1, 3);
+            string decrease = random_flag_value == 1 ? "Y" : "N";
+            int change_seconds = random.Next(1, 4);
+
+            if (decrease == "Y" && change_seconds > current_seconds)
+            {
+                timer1.Interval = TimeSpan.FromSeconds(change_seconds);
+            }
+            else
+            {
+                if (decrease == "Y")
+                    timer1.Interval = TimeSpan.FromSeconds(current_seconds - change_seconds);
+                else
+                    timer1.Interval = TimeSpan.FromSeconds(current_seconds + change_seconds);
+            }
+            
             DisplayStartedTime();
+            txtSecs.Text = timer1.Interval.TotalSeconds.ToString();
         }
 
         private void cmdreset_Click(object sender, EventArgs e)

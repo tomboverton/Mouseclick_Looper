@@ -30,6 +30,7 @@ namespace mouseclick_looper
             timer1.Tick += timer1_Tick;
             var times = GetSettings();
             MainWindow mw = (MainWindow)Application.Current.MainWindow;
+            mw.Topmost = true;
             mw.ResizeMode = ResizeMode.CanMinimize;
             txtMins.Text = times.Mins.ToString();
             txtSecs.Text = times.Secs.ToString();

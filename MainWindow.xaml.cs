@@ -34,6 +34,7 @@ namespace mouseclick_looper
             mw.ResizeMode = ResizeMode.CanMinimize;
             txtMins.Text = times.Mins.ToString();
             txtSecs.Text = times.Secs.ToString();
+            chkRandom.IsChecked = true;
         }
 
         public void DoMouseClick()
@@ -61,8 +62,7 @@ namespace mouseclick_looper
             {
                 duration += float.Parse(txtSecs.Text) * 1000;
             }
-            duration += 1000;
-
+            
             seconds = (int)duration / 1000;
 
             timer1.Interval = TimeSpan.FromSeconds(seconds);
@@ -88,24 +88,28 @@ namespace mouseclick_looper
         private void timer1_Tick(object sender, EventArgs e)
         {
             DoMouseClick();
+                     
 
-            double current_seconds = timer1.Interval.TotalSeconds;
-            Random random_flag = new Random();
-            Random random = new Random();
-            int random_flag_value = random_flag.Next(1, 3);
-            string decrease = random_flag_value == 1 ? "Y" : "N";
-            int change_seconds = random.Next(1, 4);
+            if (chkRandom.IsChecked == true)
+            {
+                Random random_flag = new Random();
+                Random random = new Random();
+                double current_seconds = timer1.Interval.TotalSeconds;
+                int random_flag_value = random_flag.Next(1, 3);
+                string decrease = random_flag_value == 1 ? "Y" : "N";
+                int change_seconds = random.Next(1, 4);
 
-            if (decrease == "Y" && change_seconds > current_seconds)
-            {
-                timer1.Interval = TimeSpan.FromSeconds(change_seconds);
-            }
-            else
-            {
-                if (decrease == "Y")
-                    timer1.Interval = TimeSpan.FromSeconds(current_seconds - change_seconds);
+                if (decrease == "Y" && change_seconds > current_seconds)
+                {
+                    timer1.Interval = TimeSpan.FromSeconds(change_seconds);
+                }
                 else
-                    timer1.Interval = TimeSpan.FromSeconds(current_seconds + change_seconds);
+                {
+                    if (decrease == "Y")
+                        timer1.Interval = TimeSpan.FromSeconds(current_seconds - (change_seconds + 1));
+                    else
+                        timer1.Interval = TimeSpan.FromSeconds(current_seconds + change_seconds);
+                }
             }
             
             DisplayStartedTime();
